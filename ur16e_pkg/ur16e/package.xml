@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>ur16e</name>
+  <version>1.2.5</version>
+  <description> Universal Robots manipulators simuation with ur16e model</description>
+  <author>Aarsh Thakker</author>
+  <maintainer email="aarsh.thakker@eleves.ec-nantes.fr">Aarsh Thaker</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/universal_robots</url>
+  <url type="bugtracker">https://github.com/ros-industrial/universal_robot/issues</url>
+  <url type="repository">https://github.com/ros-industrial/universal_robot</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>ur16_e_moveit_config</exec_depend>
+  <exec_depend>ur_description</exec_depend>
+  <exec_depend>ur_gazebo</exec_depend>
+  <exec_depend>ur_kinematics</exec_depend>
+  <exec_depend>ur_simulation</exec_depend>
+
+  <export>
+    <metapackage/>
+    <architecture_independent/>
+    <ros_industrial>
+      <support_level value="community" />
+    </ros_industrial>
+  </export>
+</package>
