@@ -48,7 +48,7 @@ source ~/catkin_ws/devel/setup.bash
 
 - Launch robot simulation:
 ```
-roslaunch icl_ur5_setup_gazebo icl_ur5_gripper.launch
+roslaunch icl_ur16_setup_gazebo icl_ur16_gripper.launch
 ```
 
 Press J and K to move Gripper
