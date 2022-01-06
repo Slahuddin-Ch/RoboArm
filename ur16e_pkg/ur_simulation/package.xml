@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ur_simulation</name>
+  <version>0.0.0</version>
+  <description>The ur_simulation package</description>
+
+  <author email="aarsh.thakker@eleves.ec-nantes.fr">Aarsh Thakker</author>
+  <maintainer email="aarsh.thakker@eleves.ec-nantes.fr">Aarsh Thakker</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>ur_description</exec_depend>
+  <exec_depend>ur_gazebo</exec_depend>
+
+
+
+</package>

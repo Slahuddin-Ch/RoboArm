@@ -1,0 +1,15 @@
+[submodule "gazebo-pkgs"]
+	path = gazebo-pkgs
+	url = git@github.com:ghufran-git/gazebo-pkgs.git
+[submodule "general-message-pkgs"]
+	path = general-message-pkgs
+	url = git@github.com:ghufran-git/general-message-pkgs.git
+[submodule "roboticsgroup_gazebo_plugins"]
+	path = roboticsgroup_gazebo_plugins
+	url = git@github.com:ghufran-git/roboticsgroup_gazebo_plugins.git
+[submodule "ur5_with_robotiq_gripper"]
+	path = ur5_with_robotiq_gripper
+	url = git@github.com:ghufran-git/ur5_with_robotiq_gripper.git
+[submodule "universal_robot"]
+	path = universal_robot
+	url = git@github.com:ghufran-git/universal_robot.git

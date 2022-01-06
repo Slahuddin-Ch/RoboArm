@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ur_description
+    relative_path: urdf/ur16e.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/ur16e_robot.srdf
+  CONFIG:
+    author_name: Aarsh Thakker
+    author_email: aarsh.thakker@eleves.ec-nantes.fr
+    generated_timestamp: 1641025562

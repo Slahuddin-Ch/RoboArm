@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="gazebo_gui" default="true"/>
+  <arg name="urdf_path" default="$(find ur_description)/urdf/ur16e.urdf"/>
+  <arg name="tf_pub_rate" default="500" doc="Rate at which robot_state_publisher should publish transforms."/>
+
+
+  <arg name="no_of_robot" default="1" />
+  <arg name="robot1" default="robot1"/>
+  <arg name="robot2" default="robot2"/>
+
+  <arg name="x" default="0"/>
+  <arg name="x_offset" default="2"/>
+  <arg name="y" default="0"/>
+  <arg name="y_offset" default="0"/>
+  <arg name="z" default="0"/>
+  <arg name="z_offset" default="0"/>
+
+
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gazebo_gui)"/>
+  </include>
+
+  <!-- send robot urdf to param server -->
+  <param name="robot_description" textfile="$(arg urdf_path)" />
+
+
+
+  <group ns="$(arg robot1)" if="$(eval arg('no_of_robot') > 0)">
+    
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="$(arg tf_pub_rate)" />
+      <param name="tf_prefix" value="$(arg robot1)" />
+      <remap from="/joint_states" to="/$(arg robot1)/joint_states" />
+    </node>
+
+    <include file="$(dirname)/spawn_robot.launch">
+      <arg name="robot_name" value="$(arg robot1)"/>
+      <arg name="x" value="$(arg x)"/>
+      <arg name="y" value="$(arg y)"/>
+      <arg name="z" value="$(arg z)"/>
+    </include>
+    <include file="$(find ur16_e_moveit_config)/launch/ros_controllers.launch"/>
+  </group>
+
+  <group ns="$(arg robot2)" if="$(eval arg('no_of_robot') > 1)">
+    
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="$(arg tf_pub_rate)" />
+      <param name="tf_prefix" value="$(arg robot2)" />
+      <remap from="/joint_states" to="/$(arg robot2)/joint_states" />
+    </node>
+
+    <include file="$(dirname)/spawn_robot.launch">
+      <arg name="robot_name" value="$(arg robot2)"/>
+      <arg name="x" value="$(eval arg('x')+arg('x_offset'))"/>
+      <arg name="y" value="$(eval arg('y')+arg('y_offset'))"/>
+      <arg name="z" value="$(eval arg('z')+arg('z_offset'))"/>
+    </include>
+    <include file="$(find ur16_e_moveit_config)/launch/ros_controllers.launch"/>
+  </group>
+
+</launch>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="limited" default="true"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="world" default="$(find icl_ur16_setup_gazebo)/worlds/table_boxes.world"/>
+  
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--arg name="paused" value="false"/-->    
+    <!-- more default parameters can be changed here -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="world_name" value="$(arg world)"/>
+  </include>
+
+  <!-- Convert an xacro and put on parameter server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find icl_ur16_setup_description)/robots/ur16_robotiq_140_joint_limited.xacro' " />
+
+  <!-- Spawn a robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model ur16_gripper -z 1.06
+    -unpause" respawn="false" output="screen" />
+
+
+  <!--ros_control stuff for UR16 and robotiq-->
+  <include file="$(find icl_ur16_setup_gazebo)/launch/controller_utils.launch"/>
+
+  <rosparam file="$(find icl_ur16_setup_gazebo)/config/gripper_controller_robotiq.yaml" command="load"/>
+  <node name="gripper_controller_spawner" pkg="controller_manager" type="spawner" args="gripper" output="screen"/>
+
+  <!-- launching a script that controls the gripper -->
+  <node pkg="icl_ur16_setup_gazebo" name="keyboard_gripper_movement" type="keyboard_gripper_movement.py" output="screen"/>
+</launch>
